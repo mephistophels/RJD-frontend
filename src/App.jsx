@@ -4,6 +4,7 @@ import '@mantine/core/styles.css';
 import {RouterProvider} from "react-router-dom";
 import {router} from "./router";
 const App = () => {
+
   return (
     <Provider store={store}>
       <RouterProvider router={router}/>

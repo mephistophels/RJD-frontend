@@ -1,16 +1,8 @@
-import {
-    Paper,
-    TextInput,
-    PasswordInput,
-    Button,
-    Title,
-    Text,
-    Anchor,
-} from '@mantine/core';
+import {Anchor, Button, Paper, PasswordInput, Text, TextInput, Title,} from '@mantine/core';
 import classes from './Registration.module.css';
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "../../hooks";
-import { api } from '../../api';
+import {api} from "../../api";
 
 export default function Registration() {
     const {values, patronymic, email, password, name, surname} = useForm({

@@ -1,5 +1,4 @@
 import React from 'react'
-import { UserCard } from '../UserCard'
 import { Container, Group } from '@mantine/core'
 
 const BurgerNavigation = ({
@@ -19,7 +18,7 @@ const BurgerNavigation = ({
       margin: '0 auto',
     }}>
       <Container p={40}>
-        <UserCard {...userCardData}/>
+        {/*<UserCard {...userCardData}/>*/}
         <br />
         {getImlementerLinks()}
       </Container>
