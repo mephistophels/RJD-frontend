@@ -1,18 +1,18 @@
 import {createBrowserRouter,} from "react-router-dom";
 import "./index.css";
-import Login from "./pages/auth/Login";
-import Registration from "./pages/auth/Registration";
 import {Wrapper} from "./components/Wrapper";
 import {PATH} from "./consts";
+import Auth from "./pages/auth/Auth";
+import OrderRegistration from "./pages/auth/OrderRegistration";
 
 export const router = createBrowserRouter([
     {
         path: PATH.LOGIN,
-        element: <Login/>
+        element: <Auth />
     },
     {
-        path: PATH.REGISTRATION,
-        element: <Registration/>
+        path: PATH.BASE_REGISTRATION,
+        element: <Auth />
     },
     {
         path: PATH.HOME,
@@ -21,6 +21,10 @@ export const router = createBrowserRouter([
             {
                 path: PATH.HOME,
                 element: <></>,
+            },
+            {
+                path: PATH.ORDER_REGISTRATION,
+                element: <OrderRegistration />,
             },
         ]
     }

@@ -53,3 +53,26 @@ export function useQuery(func, ...params) {
     return [data, fetchData, {error, loading}];
 }
 
+export const useFileLoad = () => {
+    const [img, setImg] = useState(null);
+    const [imgUrl, setImgUrl] = useState(null);
+    const [drag, setDrag] = useState(false);
+    const fileReader = new FileReader();
+
+    fileReader.onloadend = () => {
+        setImgUrl(fileReader.result);
+    }
+
+    const handle = e => {
+        e.preventDefault();
+        const file = e.target.files[0];
+        setImg(file);
+        fileReader.readAsDataURL(file);
+    }
+
+    return {
+        imgUrl,
+        handle
+    }
+
+}
