@@ -36,17 +36,19 @@ const Auth = () => {
   };
 
   return (
-    <div classNames='bg'>
-    <Container size={620} my={40} mt='200px' p={0} className='container-shadow'>
-        <Nav c={path === PATH.BASE_REGISTRATION}/>
-        <br/>
-        <Container>
-          <div style={{width: '100%'}}>
-            {path === PATH.LOGIN && <Login login={login}/>}
-            {path === PATH.BASE_REGISTRATION && <RegistrationForm />}
-          </div>
-        </Container>
-    </Container>
+    <div className='bg'>
+      <div>
+      <Container size={620} my={40} mt='250px' p={0} className='container-shadow' style={{backgroundColor: 'white'}}>
+          <Nav c={path === PATH.BASE_REGISTRATION}/>
+          <br/>
+          <Container style={{backgroundColor: 'white'}}>
+            <div style={{width: '100%'}}>
+              {path === PATH.LOGIN && <Login login={login}/>}
+              {path === PATH.BASE_REGISTRATION && <RegistrationForm />}
+            </div>
+          </Container>
+      </Container>
+      </div>
     </div>
   )
 }
