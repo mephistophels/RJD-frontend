@@ -31,19 +31,26 @@ const RegistrationFrom = ({
 
     return (
         <form onSubmit={e => handleSubmit(e)} style={{paddingBottom: '20px'}}>
-            <Group justify='space-between' p={10}>
-                <Input 
-                    label="Email"
-                    type="email"
-                    placeholder="you@mantine.dev"
-                    required
-                />
-                <Input 
-                    label="password"
-                    type="password"
-                    placeholder="Your password"
-                    required
-                />
+            <Group display='block' p={10}>
+                <Group justify='space-between'>
+                    <TextInput 
+                        label="Email"
+                        radius={0}
+                        size='md'
+                        type="email"
+                        placeholder="you@mantine.dev"
+                        required
+                        />
+                    <TextInput 
+                        label="password"
+                        type="password"
+                        radius={0}
+                        size='md'
+                        placeholder="Your password"
+                        required
+                    />
+                </Group>
+                <br />
                 <InputLabel>Ваш номер</InputLabel>
                 <PhoneInput
                     country={'ru'}

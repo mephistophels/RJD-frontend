@@ -29,15 +29,19 @@ const Login = ({
     return (
         <form onSubmit={e => handleSubmit(e)} style={{paddingBottom: '20px'}}>
             <Group justify='space-between' p={10}>
-                <Input 
+                <TextInput 
                     label="Email"
+                    radius={0}
+                    size='md'
                     type="email"
                     placeholder="you@mantine.dev"
                     required
                 />
-                <Input 
+                <TextInput 
                     label="password"
                     type="password"
+                    radius={0}
+                    size='md'
                     placeholder="Your password"
                     required
                 />

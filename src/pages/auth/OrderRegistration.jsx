@@ -2,7 +2,6 @@ import { Anchor, Avatar, Checkbox, Container, Group, InputLabel, Paper, Text, Te
 import React, { useEffect, useState } from 'react'
 import { useFileLoad, useForm } from '../../hooks'
 import './Auth.css';
-import AdjInput from '../../components/Input/AdjInput';
 import { StarReview } from '../../components/StarsReview';
 import { Form } from 'react-bootstrap';
 import { Button } from '@mantine/core';

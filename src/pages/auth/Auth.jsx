@@ -36,7 +36,7 @@ const Auth = () => {
   };
 
   return (
-    <div className='bg'>
+    <div /*className='bg'*/>
       <div>
       <Container size={620} my={40} mt='250px' p={0} className='container-shadow' style={{backgroundColor: 'white'}}>
           <Nav c={path === PATH.BASE_REGISTRATION}/>
