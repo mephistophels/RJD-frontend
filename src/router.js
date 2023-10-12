@@ -4,6 +4,7 @@ import Login from "./pages/auth/Login";
 import Registration from "./pages/auth/Registration";
 import {Wrapper} from "./components/Wrapper";
 import {PATH} from "./consts";
+import {Home} from "./pages/Home";
 
 export const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: PATH.HOME,
-                element: <></>,
+                element: <Home/>,
             },
         ]
     }
