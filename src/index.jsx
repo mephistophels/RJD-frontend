@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import {createTheme, MantineProvider} from '@mantine/core';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme({
     primaryColor: 'red',

@@ -6,7 +6,7 @@ export const useForm = (initialValues) => {
     const [values, setValues] = useState(initialValues);
 
     const createChangeHandler = useCallback((name) => (event) => {
-        const { value } = event.target;
+        const value = event.target?.value || event;
         setValues(prevValues => ({
             ...prevValues,
             [name]: value
@@ -20,6 +20,7 @@ export const useForm = (initialValues) => {
             name: field,
             value: values[field],
             onChange: createChangeHandler(field),
+            defaultValue: initialValues[field],
         };
     }
 
@@ -29,6 +30,51 @@ export const useForm = (initialValues) => {
         ...formUtilities,
     };
 };
+
+// export const useForm = (initialValues) => {
+//     const [values, setValues] = useState(() => {
+//         // Read the initial state from the URL on component mount
+//         const params = new URLSearchParams(window.location.search);
+//         let stateFromUrl = {};
+//         for (let key of params.keys()) {
+//             stateFromUrl[key] = params.get(key);
+//         }
+//         return { ...initialValues, ...stateFromUrl };
+//     });
+//
+//     const createChangeHandler = useCallback((name) => (event) => {
+//         const value = event.target?.value || event;
+//         setValues(prevValues => {
+//             const newState = {
+//                 ...prevValues,
+//                 [name]: value
+//             };
+//
+//             // Convert the state to a query string
+//             const params = new URLSearchParams(newState);
+//
+//             // Update the URL without causing a page reload
+//             window.history.pushState(null, '', '?' + params.toString());
+//
+//             return newState;
+//         });
+//     }, []);
+//
+//     const formUtilities = {};
+//
+//     for (let field in initialValues) {
+//         formUtilities[field] = {
+//             name: field,
+//             value: values[field],
+//             onChange: createChangeHandler(field),
+//         };
+//     }
+//
+//     return {
+//         values,
+//         ...formUtilities,
+//     };
+// };
 
 export function useQuery(func, ...params) {
     const [data, setData] = useState('');
