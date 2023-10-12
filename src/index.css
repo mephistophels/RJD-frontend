@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body{
-    background-color: #171717;
+    background-color: white;
     margin: 0;
     color: rgb(165, 188, 184);
     --mantine-breakpoint-xs: 36em;

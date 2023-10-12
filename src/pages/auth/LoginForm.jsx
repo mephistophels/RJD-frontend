@@ -1,19 +1,10 @@
 import {
     TextInput,
-    PasswordInput,
-    Anchor,
-    Paper,
-    Title,
-    Text,
-    Container,
     Button,
     Group,
-    InputLabel,
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { theme } from '../..';
-import Input from '../../components/Input/Input';
 const Login = ({
     login
 }) => {
@@ -23,7 +14,6 @@ const Login = ({
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // login({email, password});
     };
 
     return (
@@ -46,7 +36,7 @@ const Login = ({
                     required
                 />
             </Group>
-            <Button type="submit" fullWidth color={theme.colors.gray[1]} mt={50}>
+            <Button type="submit" fullWidth mt={50}>
                 Sign in
             </Button>
         </form>

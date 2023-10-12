@@ -1,23 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import {createTheme, MantineProvider} from '@mantine/core';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 export const theme = createTheme({
-    primaryColor: 'pink',
+    primaryColor: 'red',
+    defaultRadius: 2,
     colors: {
-        red: ['#FF0000'],
-        gray: ['#F3F3F3', '#888888'],
-        pink: ['#F97171']
+        button: ['#C6D2DE']
     }
 })
-
 root.render(
-    // <React.StrictMode>
+    <React.StrictMode>
         <MantineProvider defaultColorScheme="light" theme={theme}>
             <App/>
         </MantineProvider>
-    // </React.StrictMode>
+    </React.StrictMode>
 );

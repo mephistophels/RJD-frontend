@@ -1,4 +1,4 @@
-import { Container, Group, Paper, Text } from '@mantine/core'
+import { Container, Group, Paper, Text, Button } from '@mantine/core'
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '../../consts';
@@ -6,20 +6,27 @@ import Login from './LoginForm';
 import RegistrationForm from './RegistrationForm';
 import { api } from '../../api';
 import './Auth.css';
+import { theme } from '../../index';
 
 const Nav = ({c}) => {
   const navigate = useNavigate();
   return (
-    <div>
-      <Text
+    <Group grow justify='space-between' gap={0}>
+      <Button
+        style={{width: '50%'}}
+        size='md'
+        radius={0}
+        color={c == 0 ? 'red' : theme.colors.button[0]}
         onClick={() => navigate(PATH.LOGIN)}
-        className={`link-text ${c == 0 && 'link-current'}`
-      }>Логин</Text>
-      <Text
+      >Логин</Button>
+      <Button 
+        style={{width: '50%'}}
+        size='md' 
+        radius={0}
+        color={c == 1 ? 'red' : theme.colors.button[0]} 
         onClick={() => navigate(PATH.BASE_REGISTRATION)}
-        className={`link-text ${c == 1 && 'link-current'}`
-      }>Регистрация</Text>
-    </div>
+      >Регистрация</Button>
+    </Group>
   );
 
 }

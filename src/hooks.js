@@ -116,9 +116,15 @@ export const useFileLoad = () => {
         fileReader.readAsDataURL(file);
     }
 
+    const handleFile = file => {
+        setImg(file);
+        fileReader.readAsDataURL(file);
+    }
+
     return {
         imgUrl,
-        handle
+        handle,
+        handleFile
     }
 
 }

@@ -5,7 +5,6 @@ import './Auth.css';
 import { StarReview } from '../../components/StarsReview';
 import { Form } from 'react-bootstrap';
 import { Button } from '@mantine/core';
-import { theme } from '../..';
 
 const OrderRegistration = () => {
 
@@ -94,7 +93,7 @@ const OrderRegistration = () => {
         <InputLabel size='md'>Ваша оценка нашего предложения</InputLabel>
         <StarReview />
         <Group justify='center'>
-          <Button type="submit" mt="20px" color={theme.colors.gray[1]} size='xl'>
+          <Button type="submit" mt="20px" size='xl'>
             Заказать
           </Button>
         </Group>
