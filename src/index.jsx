@@ -6,11 +6,12 @@ import {createTheme, MantineProvider} from '@mantine/core';
 import '@mantine/core/styles.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme({
-    primaryColor: 'teal',
+    primaryColor: 'red',
+    defaultRadius: 2,
 })
 root.render(
     // <React.StrictMode>
-        <MantineProvider defaultColorScheme="dark" theme={theme}>
+        <MantineProvider defaultColorScheme="light" theme={theme}>
             <App/>
         </MantineProvider>
     // </React.StrictMode>
