@@ -3,19 +3,17 @@ import {
     Button,
     Group, Space,
 } from '@mantine/core';
-import {Link} from 'react-router-dom';
-import React, {useState} from 'react';
-
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useForm } from '../../hooks';
 const Login = ({
-                   login
-               }) => {
+    submit
+}) => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    };
+    const {values, email, password} = useForm({
+        email: '',
+        password: '',
+    })
 
     return (
         <form onSubmit={e => handleSubmit(e)} style={{paddingBottom: '20px'}}>
@@ -33,7 +31,7 @@ const Login = ({
                 required
             />
             <Space h='xl'/>
-            <Button type="submit" fullWidth>
+            <Button type="submit" fullWidth onSubmit={() => submit(values)}>
                 Sign in
             </Button>
         </form>

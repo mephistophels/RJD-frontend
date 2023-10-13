@@ -4,15 +4,15 @@ import {
     Group,
     InputLabel,
     Text,
-    Modal, Space,
+    Modal,
 } from '@mantine/core';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import {theme} from '../../index';
-import {useForm} from '../../hooks';
+import { theme } from '../../index';
+import { useForm } from '../../hooks';
 import Questionnaire from '../../components/Questionnaire/Questionnaire';
-import {Form} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 const RegistrationFrom = ({registration}) => {
 

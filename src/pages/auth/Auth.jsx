@@ -36,11 +36,12 @@ const Auth = () => {
 
   const path = useLocation().pathname;
   const navigate = useNavigate();
+  const navigateTo = () => navigate('/')
 
-  const login = async (data) => {
-    await api.auth.postLogin(data);
-    navigate('/');
-  };
+  const login = (data) =>
+    api.auth.postLogin(data, navigateTo);
+  const registration = (data) =>
+    api.auth.postRegistration(data, navigateTo);
 
   return (
     <div /*className='bg'*/>
@@ -50,8 +51,8 @@ const Auth = () => {
           <br/>
           <Container style={{backgroundColor: 'white'}}>
             <div style={{width: '100%'}}>
-              {path === PATH.LOGIN && <Login login={login}/>}
-              {path === PATH.BASE_REGISTRATION && <RegistrationForm />}
+              {path === PATH.LOGIN && <Login submit={login}/>}
+              {path === PATH.BASE_REGISTRATION && <RegistrationForm submit={registration}/>}
             </div>
           </Container>
       </Container>
