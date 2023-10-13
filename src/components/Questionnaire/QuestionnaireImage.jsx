@@ -5,7 +5,7 @@ import classes from './DropzoneButton.module.css';
 import { useFileLoad } from '../../hooks';
 import { useRef } from 'react';
 
-export function QuestionnaireImage(props) {
+export function QuestionnaireImage({setImage, ...props}) {
 
   const openRef = useRef(null);
   const Img = useFileLoad();
@@ -17,7 +17,7 @@ export function QuestionnaireImage(props) {
       <Dropzone
         openRef={openRef}
         className={classes.dropzone}
-        onDrop={(files) => Img.handleFile(files[0])}
+        onDrop={(files) => {Img.handleFile(files[0]); setImage(files[0])}}
         onReject={(files) => console.log('rejected files', files)}
         maxSize={3 * 1024 ** 2}
         accept={IMAGE_MIME_TYPE}

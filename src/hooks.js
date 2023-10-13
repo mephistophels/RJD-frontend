@@ -6,7 +6,7 @@ export const useForm = (initialValues) => {
     const [values, setValues] = useState(initialValues);
 
     const createChangeHandler = useCallback((name) => (event) => {
-        const value = event.target?.value || event;
+        const value = event.target?.value; // || event;
         setValues(prevValues => ({
             ...prevValues,
             [name]: value

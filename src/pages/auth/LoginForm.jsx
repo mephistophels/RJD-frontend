@@ -16,7 +16,7 @@ const Login = ({
     })
 
     return (
-        <form onSubmit={e => submit(values)} style={{paddingBottom: '20px'}}>
+        <form onSubmit={e => {e.preventDefault(); submit(values)}} style={{paddingBottom: '20px'}}>
             <TextInput
                 label="Email"
                 type="email"

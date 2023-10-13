@@ -6,13 +6,14 @@ import {
     Text,
     Modal, Space,
 } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { theme } from '../../index';
 import { useForm } from '../../hooks';
 import Questionnaire from '../../components/Questionnaire/Questionnaire';
-import { Form } from 'react-bootstrap';
+import { useQuestionnaire } from '../../components/Questionnaire/useQuestionnaire';
+import { showAlert } from '../../utils';
 
 const RegistrationFrom = ({submit}) => {
 
@@ -21,8 +22,17 @@ const RegistrationFrom = ({submit}) => {
         password: '',
         phone: '',
     });
-
     const [showQuestionnaire, setShow] = useState(false);
+    const questionnaire = useQuestionnaire();
+
+    const submitWrapper = (e) => {
+        e.preventDefault();
+        if (!questionnaire.isCompeted) {
+            showAlert('Необходимо заполнить анкету!');
+            return;
+        }
+        submit(values);
+    }
 
     return (
         <>
@@ -34,35 +44,36 @@ const RegistrationFrom = ({submit}) => {
                 radius={0}
                 transitionProps={{transition: 'fade', duration: 200}}
             >
-                <Questionnaire submit={() => setShow(false)}/>
+                <Questionnaire submit={() => setShow(false)} questionnaire={questionnaire}/>
             </Modal>
-            <form onSubmit={()=>submit(values)} style={{paddingBottom: '20px'}}>
-                    <TextInput
-                        {...email}
-                        label="Email"
-                        type="email"
-                        placeholder="you@mantine.dev"
-                        required
-                    />
-                    <Space h='sm'/>
-                    <TextInput
-                        {...password}
-                        label="password"
-                        type="password"
-                        placeholder="Your password"
-                        required
-                    />
-                    <Space h='sm'/>
-                    <InputLabel>Ваш номер</InputLabel>
-                    <PhoneInput
-                        country={'ru'}
-                        width={'100%'}
-                        {...phone}
-                    />
+            <form onSubmit={e=>submitWrapper(e)} style={{paddingBottom: '20px'}}>
+                <TextInput
+                    {...email}
+                    label="Email"
+                    type="email"
+                    placeholder="you@mantine.dev"
+                    required
+                />
+                <Space h='sm'/>
+                <TextInput
+                    {...password}
+                    label="password"
+                    type="password"
+                    placeholder="Your password"
+                    required
+                />
+                <Space h='sm'/>
+                <InputLabel>Ваш номер</InputLabel>
+                <PhoneInput
+                    country={'ru'}
+                    width={'100%'}
+                    {...phone}
+                />
+                <Space h='sm'/>
                 <Button size='xs' color={theme.colors.button[0]} onClick={() => setShow(true)}>
                     Дополнительные данные
                 </Button>
-                <br/>
+                <Space h='sm'/>
                 <Button type="submit" fullWidth >
                     Registration
                 </Button>
