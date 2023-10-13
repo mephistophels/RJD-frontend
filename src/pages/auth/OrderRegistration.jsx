@@ -5,6 +5,7 @@ import './Auth.css';
 import { Button } from '@mantine/core';
 import { VscArchive } from "react-icons/vsc";
 import Questionnaire from '../../components/Questionnaire/Questionnaire';
+import { useQuestionnaire } from '../../components/Questionnaire/useQuestionnaire';
 
 const Companion = ({data, remove}) => {
   return (
@@ -41,6 +42,7 @@ const OrderRegistration = () => {
     patronymic: '',
     birthday: 'Ваш день рождения',
   });
+  const questionnaire = useQuestionnaire();
 
   const order = {
     ticketCost: 1000,
@@ -75,7 +77,9 @@ const OrderRegistration = () => {
               transitionProps={{ transition: 'fade', duration: 200 }}
             >   
               <Questionnaire
-                submit={(data) => addCompanion(data)}/>
+                submit={(data) => addCompanion(data)}
+                questionnaire={questionnaire}
+              />
             </Modal>
 
       <Paper withBorder p={50}>
