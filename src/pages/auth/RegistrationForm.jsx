@@ -5,7 +5,6 @@ import {
     InputLabel,
     Text,
     Modal,
-    ModalBase,
 } from '@mantine/core';
 import React, { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
@@ -22,10 +21,10 @@ const RegistrationFrom = ({registration}) => {
         phone: '',
     });
 
-    const [showQuestionnaire, setShow] = useState(true);
+    const [showQuestionnaire, setShow] = useState(false);
 
     return (
-        <form onSubmit={() => {}} style={{paddingBottom: '20px'}}>
+        <>
             <Modal
                 withCloseButton={false}
                 opened={showQuestionnaire} 
@@ -37,6 +36,7 @@ const RegistrationFrom = ({registration}) => {
             >   
                 <Questionnaire submit={() => setShow(false)}/>
             </Modal>
+        <div onSubmit={() => {}} style={{paddingBottom: '20px'}}>
             <Group display='block' p={10}>
                 <Group justify='space-between'>
                     <TextInput
@@ -76,7 +76,8 @@ const RegistrationFrom = ({registration}) => {
             <Button type="submit" fullWidth mt="20px">
                 Registration
             </Button>
-        </form>
+        </div>
+    </>
   )
 }
 

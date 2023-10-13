@@ -1,7 +1,6 @@
 import React from 'react'
 import { QuestionnaireImage } from './QuestionnaireImage';
-import { Container, Group, InputLabel, TextInput, Textarea, Title, Text, Button, Checkbox, TagsInput, Paper, Radio } from '@mantine/core';
-import { StarReview } from '../StarsReview';
+import { Container, Group, TextInput, Textarea, Title, Text, Button, Checkbox, TagsInput, Paper, Radio } from '@mantine/core';
 
 const data1 = [
   '12312cvxcv3123',

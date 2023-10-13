@@ -1,102 +1,116 @@
-import { Anchor, Avatar, Checkbox, Container, Group, InputLabel, Paper, Text, TextInput, Textarea, Title } from '@mantine/core'
+import { Anchor, Avatar, Card, Checkbox, Container, Group, InputLabel, Modal, Paper, Text, TextInput, Textarea, Title } from '@mantine/core'
 import React, { useEffect, useState } from 'react'
 import { useFileLoad, useForm } from '../../hooks'
 import './Auth.css';
-import { StarReview } from '../../components/StarsReview';
-import { Form } from 'react-bootstrap';
 import { Button } from '@mantine/core';
+import { VscArchive } from "react-icons/vsc";
+import Questionnaire from '../../components/Questionnaire/Questionnaire';
+
+const Companion = ({data, remove}) => {
+  return (
+    <Paper withBorder p={0} mb={10}>
+      <Group justify='space-between'>
+        <div>
+          <Group gap={0}>
+            <Avatar ml={20}/>
+            <Card>
+              <Title size='md'>
+                {data.name} {data.surname}
+              </Title>
+              <Text>
+                Место: {data.place} 
+              </Text>
+            </Card>
+          </Group>
+        </div>
+        <VscArchive
+          size='30px'
+          color='red'
+          style={{marginRight: '20px'}}
+          onClick={remove}
+        />
+      </Group>
+    </Paper>
+  );
+}
 
 const OrderRegistration = () => {
-
   const {values, name, surname, patronymic, birthday} = useForm({
     name: '',
     surname: '',
     patronymic: '',
     birthday: 'Ваш день рождения',
   });
+
+  const order = {
+    ticketCost: 1000,
+    train: 'Ласточка',
+    place: '1B',
+    description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem sint velit odit aperiam culpa consequatur neque placeat molestiae quaerat reprehenderit magni similique quos, at, eligendi nisi. Reprehenderit in sunt aut?',
+  }
+
   const profileImg = useFileLoad();
+  const [componions, setComponions] = useState([]);
+  const [showQuestionnaire, setShow] = useState(false);
+
+  const addCompanion = data => {
+    setComponions(prev => [...prev, {
+      name: `Вася${prev.length + 1}`,
+      surname: 'Пасажин',
+      place: '2B',
+    }]);
+    setShow(false);
+  }
 
   return (
     <Container>
+
+            <Modal
+              withCloseButton={false}
+              opened={showQuestionnaire} 
+              onClose={() => setShow(false)} 
+              size='100%'
+              fullScreen
+              radius={0}
+              transitionProps={{ transition: 'fade', duration: 200 }}
+            >   
+              <Questionnaire
+                submit={(data) => addCompanion(data)}/>
+            </Modal>
+
       <Paper withBorder p={50}>
-        <Title>
-          Билет на поезд такой то за много денег
-        </Title>
-        <br /><br />
-        <Group>
+        <Group justify='space-between'>
           <div>
-          <div/>
-          <label htmlFor='img-loader' className='img-loader'>
-            <img
-              className='user-img'
-              src={profileImg.imgUrl || require('../../res/icons/avatar.jpg')}
-              alt='your photo'
-            />
-          </label>
-          <input 
-            id="img-loader"
-            type='file'
-            style={{opacity: '0', width: '0', height: '0', display: 'block'}}
-            onChange={e => profileImg.handle(e)}
-          />
+            <Title>
+              {order.train}
+            </Title>
+            <Text size='xl'>
+              Стоимость: {order.ticketCost * (componions.length + 1)}
+            </Text>
+            <Text size='xl'>
+              Ваше место: {order.place}
+            </Text>
           </div>
-          <Group mb='10%'>
-            <div style={{marginLeft: '20px'}}>
-              <input className='user-input' {...name} placeholder='Имя'/><div/>
-              <input className='user-input' {...surname} placeholder='Фамилия'/><div/>
-              <input className='user-input' {...patronymic} placeholder='Отчество'/><div/>
-              {/* <AdjInput {...name}/>
-              <AdjInput {...surname}/>
-              <AdjInput {...patronymic}/> */}
-            </div>
+          <Container w='50%' mr={0}>
+            <Text>{order.description}</Text>
+          </Container>
+        </Group>
+        <br /><br />
+        <Paper withBorder w={'50%'} p='20px' radius={10}>
+          <Group justify='space-between' mb={10}>
+            <Title size='xl'>
+              Мои компаньоны
+            </Title>
+            <Button color='green' onClick={() => setShow(true)}>
+              Добавить
+            </Button>
           </Group>
-        </Group>
-        <br />
-        <TextInput
-          label='Ваш день рождения'
-          style={{width: '200px'}}
-          type='date'
-        />
-        <br />
-        <Textarea
-          label="Расскажите о себе"
-          description="Это поможет подобрать вам лучших попутчиков"
-          placeholder=""
-          size='xl'
-          inputMode='text'
-          style={{
-            minHeight: '200px'
-          }}  
-        />
-        <Text mb={5}>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</Text>
-          <Form.Check
-            type='checkbox'
-            label={`Тег 1`}
-            id={`disabled-default-checkbox`}
-          />
-          <Form.Check
-            type='checkbox'
-            label={`Тег 2`}
-            id={`disabled-default-checkbox`}
-          />
-          <Form.Check
-            type='checkbox'
-            label={`Тег 3`}
-            id={`disabled-default-checkbox`}
-          />
-          <Form.Check
-            type='checkbox'
-            label={`Тег 4`}
-            id={`disabled-default-checkbox`}
-          />
-          <br />
-        <InputLabel size='md'>Ваша оценка нашего предложения</InputLabel>
-        <StarReview />
-        <Group justify='center'>
-          <Button type="submit" mt="20px" size='xl'>
-            Заказать
-          </Button>
-        </Group>
+          {componions.map((e, idx) => (
+            <Companion key={idx} data={e} remove={() => {
+              setComponions(prev => prev.filter((e, i) => i !== idx));
+            }}/>
+          ))}
+        </Paper>
       </Paper>
     </Container>
   )
