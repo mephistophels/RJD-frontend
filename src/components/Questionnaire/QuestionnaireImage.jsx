@@ -49,8 +49,8 @@ export function QuestionnaireImage(props) {
           </div>
         </Group>
       </Dropzone>}
-      <Group justify="center" mt="md">
-        <Button radius={10} onClick={() => openRef.current?.()}>Select files</Button>
+      <Group justify="center" mt={-20}>
+        <Button onClick={() => openRef.current?.()}>Select files</Button>
       </Group>
     </div>
   );

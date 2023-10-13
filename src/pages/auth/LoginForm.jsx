@@ -1,13 +1,14 @@
 import {
     TextInput,
     Button,
-    Group,
+    Group, Space,
 } from '@mantine/core';
-import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+
 const Login = ({
-    login
-}) => {
+                   login
+               }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,29 +19,25 @@ const Login = ({
 
     return (
         <form onSubmit={e => handleSubmit(e)} style={{paddingBottom: '20px'}}>
-            <Group justify='space-between' p={10}>
-                <TextInput 
-                    label="Email"
-                    radius={0}
-                    size='md'
-                    type="email"
-                    placeholder="you@mantine.dev"
-                    required
-                />
-                <TextInput 
-                    label="password"
-                    type="password"
-                    radius={0}
-                    size='md'
-                    placeholder="Your password"
-                    required
-                />
-            </Group>
-            <Button type="submit" fullWidth mt={50}>
+            <TextInput
+                label="Email"
+                type="email"
+                placeholder="you@mantine.dev"
+                required
+            />
+            <Space h='md'/>
+            <TextInput
+                label="password"
+                type="password"
+                placeholder="Your password"
+                required
+            />
+            <Space h='xl'/>
+            <Button type="submit" fullWidth>
                 Sign in
             </Button>
         </form>
-  )
+    )
 }
 
 export default Login

@@ -1,6 +1,19 @@
 import React from 'react'
 import { QuestionnaireImage } from './QuestionnaireImage';
-import { Container, Group, TextInput, Textarea, Title, Text, Button, Checkbox, TagsInput, Paper, Radio } from '@mantine/core';
+import {
+  Container,
+  Group,
+  TextInput,
+  Textarea,
+  Title,
+  Text,
+  Button,
+  Checkbox,
+  TagsInput,
+  Paper,
+  Radio,
+  Space, InputLabel
+} from '@mantine/core';
 
 const data1 = [
   '12312cvxcv3123',
@@ -91,19 +104,18 @@ const Questionnaire = ({
         <br />
         <Title>Расскажите о себе</Title>
         <Textarea
-          description="Это поможет подобрать вам лучших попутчиков"
+          label="Это поможет подобрать вам лучших попутчиков"
           placeholder=""
-          size='xl'
           inputMode='text'
           style={{}}  
           />
         <br/>
-        <Text mb={5}>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</Text>
+        <InputLabel>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</InputLabel>
         {data1.map((e, i) => (
           <Checkbox key={e + i} label={e} mb={5}/>
           ))}
         <br/>
-        <Text mb={5}>Добавьте что нибудь</Text>
+        <InputLabel>Добавьте что нибудь</InputLabel>
         <TagsInput
           placeholder="Pick value or enter anything"
           data={data2}
@@ -119,9 +131,9 @@ const Questionnaire = ({
           </Text>
           {data3.map((e, i) => (
             <Container key={e.question + i} mb={20}>
-              <Text size='lg'>
+              <InputLabel>
                 {e.question}
-              </Text>
+              </InputLabel>
               {e.answers.map((g, j) => (
                 <Radio name={e.question + i} key={g + j} label={g} mb={8}/>
               ))}
@@ -136,7 +148,7 @@ const Questionnaire = ({
           </Button>
         </Group>
       </Paper>
-      <br/><br/><br/><br/><br/><br/>
+      <Space h={50}/>
     </Container>
   )
 }
