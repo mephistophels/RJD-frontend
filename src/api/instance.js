@@ -28,5 +28,6 @@ axiosInstance.interceptors.response.use(config => config, async error => {
     setTimeout(() => window.location.replace(PATH.LOGIN), 500);
   }
   showAlert(error.response?.data?.message)
-  return error
-})
+  if (error.code === "ERR_NETWORK")
+    throw error;
+});

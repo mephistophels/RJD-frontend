@@ -12,16 +12,14 @@ import 'react-phone-input-2/lib/style.css';
 import { theme } from '../../index';
 import { useForm } from '../../hooks';
 import Questionnaire from '../../components/Questionnaire/Questionnaire';
-import { Form } from 'react-bootstrap';
 
-const RegistrationFrom = ({registration}) => {
+const RegistrationFrom = ({submit}) => {
 
-    const {value, email, password, phone} = useForm({
+    const {values, email, password, phone} = useForm({
         email: '',
         password: '',
         phone: '',
     });
-
     const [showQuestionnaire, setShow] = useState(false);
 
     return (
@@ -37,7 +35,7 @@ const RegistrationFrom = ({registration}) => {
         >   
             <Questionnaire submit={() => setShow(false)}/>
         </Modal>
-        <div onSubmit={() => {}} style={{paddingBottom: '20px'}}>
+        <form onSubmit={() => {}} style={{paddingBottom: '20px'}}>
             <Group display='block' p={10}>
                 <Group justify='space-between'>
                     <TextInput
@@ -69,15 +67,15 @@ const RegistrationFrom = ({registration}) => {
             <br /><br />
             <Group>
                 <Text c='black'>Для регистрации необходимо заполнить анкету</Text>
-                <Button type="submit" size='xs' color={theme.colors.button[0]} onClick={() => setShow(true)}>
+                <Button size='xs' color={theme.colors.button[0]} onClick={() => setShow(true)}>
                     Заполнить
                 </Button>
             </Group>
             <br />
-            <Button type="submit" fullWidth mt="20px">
+            <Button type="submit" fullWidth mt="20px" onClick={() => submit({...values})}>
                 Registration
             </Button>
-        </div>
+        </form>
     </>
   )
 }

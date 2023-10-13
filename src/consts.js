@@ -7,3 +7,10 @@ export const PATH = {
     MY_PROFILE: '/my_profile',
     ORDER_REGISTRATION: '/order_registration',
 }
+
+export const API = {
+    LOGIN: '/public/login',
+    REGISTRATION: '/public/registration',
+    COMPANION_LIST: '/user/companion/list',
+    COMPANION_CREATE: '/user/companion',
+}

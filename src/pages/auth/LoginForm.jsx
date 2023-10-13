@@ -5,19 +5,18 @@ import {
 } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { useForm } from '../../hooks';
 const Login = ({
-    login
+    submit
 }) => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    };
+    const {values, email, password} = useForm({
+        email: '',
+        password: '',
+    })
 
     return (
-        <form onSubmit={e => handleSubmit(e)} style={{paddingBottom: '20px'}}>
+        <div style={{paddingBottom: '20px'}}>
             <Group justify='space-between' p={10}>
                 <TextInput 
                     label="Email"
@@ -26,6 +25,7 @@ const Login = ({
                     type="email"
                     placeholder="you@mantine.dev"
                     required
+                    {...email}
                 />
                 <TextInput 
                     label="password"
@@ -34,12 +34,13 @@ const Login = ({
                     size='md'
                     placeholder="Your password"
                     required
+                    {...password}
                 />
             </Group>
-            <Button type="submit" fullWidth mt={50}>
+            <Button type="sumit" fullWidth mt={50} onClick={() => submit({...values})}>
                 Sign in
             </Button>
-        </form>
+        </div>
   )
 }
 
