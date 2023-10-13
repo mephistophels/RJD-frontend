@@ -12,6 +12,7 @@ import 'react-phone-input-2/lib/style.css';
 import { theme } from '../../index';
 import { useForm } from '../../hooks';
 import Questionnaire from '../../components/Questionnaire/Questionnaire';
+import { Form } from 'react-bootstrap';
 
 const RegistrationFrom = ({registration}) => {
 
@@ -25,17 +26,17 @@ const RegistrationFrom = ({registration}) => {
 
     return (
         <>
-            <Modal
-                withCloseButton={false}
-                opened={showQuestionnaire} 
-                onClose={() => setShow(false)} 
-                size='100%'
-                fullScreen
-                radius={0}
-                transitionProps={{ transition: 'fade', duration: 200 }}
-            >   
-                <Questionnaire submit={() => setShow(false)}/>
-            </Modal>
+        <Modal
+            // withCloseButton={false}
+            opened={showQuestionnaire} 
+            onClose={() => setShow(false)} 
+            size='100%'
+            fullScreen
+            radius={0}
+            transitionProps={{ transition: 'fade', duration: 200 }}
+        >   
+            <Questionnaire submit={() => setShow(false)}/>
+        </Modal>
         <div onSubmit={() => {}} style={{paddingBottom: '20px'}}>
             <Group display='block' p={10}>
                 <Group justify='space-between'>

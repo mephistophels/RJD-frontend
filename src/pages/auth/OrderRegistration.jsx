@@ -66,7 +66,7 @@ const OrderRegistration = () => {
     <Container>
 
             <Modal
-              withCloseButton={false}
+              // withCloseButton={false}
               opened={showQuestionnaire} 
               onClose={() => setShow(false)} 
               size='100%'
