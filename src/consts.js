@@ -13,4 +13,5 @@ export const API = {
     REGISTRATION: '/public/registration',
     COMPANION_LIST: '/user/companion/list',
     COMPANION_CREATE: '/user/companion',
+    TICKET: '/ticket',
 }
