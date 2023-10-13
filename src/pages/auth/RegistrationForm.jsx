@@ -4,7 +4,7 @@ import {
     Group,
     InputLabel,
     Text,
-    Modal,
+    Modal, Space,
 } from '@mantine/core';
 import React, { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
@@ -14,9 +14,9 @@ import { useForm } from '../../hooks';
 import Questionnaire from '../../components/Questionnaire/Questionnaire';
 import { Form } from 'react-bootstrap';
 
-const RegistrationFrom = ({registration}) => {
+const RegistrationFrom = ({submit}) => {
 
-    const {value, email, password, phone} = useForm({
+    const {values, email, password, phone} = useForm({
         email: '',
         password: '',
         phone: '',
@@ -36,8 +36,7 @@ const RegistrationFrom = ({registration}) => {
             >
                 <Questionnaire submit={() => setShow(false)}/>
             </Modal>
-            <div onSubmit={() => {
-            }} style={{paddingBottom: '20px'}}>
+            <form onSubmit={()=>submit(values)} style={{paddingBottom: '20px'}}>
                     <TextInput
                         {...email}
                         label="Email"
@@ -60,14 +59,14 @@ const RegistrationFrom = ({registration}) => {
                         width={'100%'}
                         {...phone}
                     />
-                <Button type="submit" size='xs' color={theme.colors.button[0]} onClick={() => setShow(true)}>
+                <Button size='xs' color={theme.colors.button[0]} onClick={() => setShow(true)}>
                     Дополнительные данные
                 </Button>
                 <br/>
-                <Button type="submit" fullWidth>
+                <Button type="submit" fullWidth >
                     Registration
                 </Button>
-            </div>
+            </form>
         </>
     )
 }

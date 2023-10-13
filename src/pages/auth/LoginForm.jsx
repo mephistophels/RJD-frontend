@@ -16,7 +16,7 @@ const Login = ({
     })
 
     return (
-        <form onSubmit={e => handleSubmit(e)} style={{paddingBottom: '20px'}}>
+        <form onSubmit={e => submit(values)} style={{paddingBottom: '20px'}}>
             <TextInput
                 label="Email"
                 type="email"
@@ -31,7 +31,7 @@ const Login = ({
                 required
             />
             <Space h='xl'/>
-            <Button type="submit" fullWidth onSubmit={() => submit(values)}>
+            <Button type="submit" fullWidth>
                 Sign in
             </Button>
         </form>
