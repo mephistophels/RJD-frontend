@@ -22,6 +22,7 @@ const Login = ({
                 type="email"
                 placeholder="you@mantine.dev"
                 required
+                {...email}
             />
             <Space h='md'/>
             <TextInput
@@ -29,6 +30,7 @@ const Login = ({
                 type="password"
                 placeholder="Your password"
                 required
+                {...password}
             />
             <Space h='xl'/>
             <Button type="submit" fullWidth>

@@ -33,15 +33,16 @@ export function useQuestionnaire(/*initValues*/) {
   const setRadio = (i, text) => 
     setRadioLocal(radio.map((v, idx) => i === idx ? text : v));
   const [image, setImage] = useState(null);
-
-
+  const [sex, setSex] = useState('');
   const [isCompeted, setIsCompeted] = useState(false);
 
   const dto = {
     ...values,
     image,
     tags: [...tagInput, ...checkBox],
-    answers: radio
+    answers: radio.filter((v, i) => i !== 8),
+    sex,
+    isSick: radio[8] === 'Да.'
   };
 
   return {
@@ -62,6 +63,8 @@ export function useQuestionnaire(/*initValues*/) {
     setRadio,
     image,
     setImage,
+    sex, 
+    setSex,
   }
 
 }

@@ -45,6 +45,24 @@ const Questionnaire = ({
             </Container>
           </Group>
           <br />
+          <Group>
+            <InputLabel>Пол:<span style={{color: 'red'}}>*</span></InputLabel>
+            <Radio 
+              required
+              name='sex'
+              label='женщина'
+              checked={questionnaire.sex === 'female'}
+              onClick={() => questionnaire.setSex('female')}
+            />
+            <Radio 
+              required
+              name='sex'
+              label='мужчина'
+              checked={questionnaire.sex === 'male'} 
+              onClick={() => questionnaire.setSex('male')}
+            />
+          </Group>
+          <br />
           <Title>Расскажите о себе</Title>
           <Textarea
             required

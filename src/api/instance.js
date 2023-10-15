@@ -6,7 +6,7 @@ const HOST = process.env.SERVER_HOST || 'http://90.156.225.251';//"https://33aa-
 const PORT = process.env.SERVER_PORT  || 8080;
 const VERSION = process.env.API_VERSION || 'v1';
 const API = 'api';
-export const API_URL = `${HOST}:${PORT}/${API}/${VERSION}`;
+export const API_URL = "https://8a0b-46-138-172-108.ngrok-free.app/api/v1"; //`${HOST}:${PORT}/${API}/${VERSION}`;
 
 export const axiosInstance = axios.create({
   // withCredentials: true,
@@ -25,9 +25,8 @@ axiosInstance.interceptors.request.use(config => {
 
 axiosInstance.interceptors.response.use(config => config, async error => {
   if (error.response?.data.status === 'UNAUTHORIZED') {
+    showAlert(error.response?.data?.message)
     setTimeout(() => window.location.replace(PATH.LOGIN), 500);
   }
-  showAlert(error.response?.data?.message)
-  if (error.code === "ERR_NETWORK")
-    throw error;
+  throw error;
 });

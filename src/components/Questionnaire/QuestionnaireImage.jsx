@@ -3,12 +3,16 @@ import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import classes from './DropzoneButton.module.css';
 import { useFileLoad } from '../../hooks';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function QuestionnaireImage({setImage, ...props}) {
 
   const openRef = useRef(null);
   const Img = useFileLoad();
+
+  useEffect(() => {
+    if (Img.imgUrl) setImage(Img.imgUrl);
+  }, [Img.imgUrl]);
 
   return (
     <div className={classes.wrapper}>
@@ -17,7 +21,7 @@ export function QuestionnaireImage({setImage, ...props}) {
       <Dropzone
         openRef={openRef}
         className={classes.dropzone}
-        onDrop={(files) => {Img.handleFile(files[0]); setImage(files[0])}}
+        onDrop={(files) => {Img.handleFile(files[0])}} //setImage(files[0])
         onReject={(files) => console.log('rejected files', files)}
         maxSize={3 * 1024 ** 2}
         accept={IMAGE_MIME_TYPE}

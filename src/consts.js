@@ -10,8 +10,8 @@ export const PATH = {
 }
 
 export const API = {
-    LOGIN: '/public/login',
-    REGISTRATION: '/public/registration',
+    LOGIN: '/public/auth/login',
+    REGISTRATION: '/public/auth/registration',
     COMPANION_LIST: '/user/companion/list',
     COMPANION_CREATE: '/user/companion',
     TICKET: '/ticket',

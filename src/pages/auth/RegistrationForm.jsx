@@ -31,7 +31,10 @@ const RegistrationFrom = ({submit}) => {
             showAlert('Необходимо заполнить анкету!');
             return;
         }
-        submit(values);
+        submit({
+            ...values,
+            questionnaire: questionnaire.dto,
+        });
     }
 
     return (
