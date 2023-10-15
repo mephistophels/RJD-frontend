@@ -24,7 +24,7 @@ const Nav = ({isRegistration}) => {
         size='md' 
         radius={0}
         color={isRegistration ? 'red' : theme.colors.button[0]}
-        onClick={() => navigate(PATH.BASE_REGISTRATION)}
+        onClick={() => navigate(PATH.REGISTRATION)}
       >Регистрация</Button>
     </Group>
   );
@@ -47,12 +47,12 @@ const Auth = () => {
     <div /*className='bg'*/>
       <div>
       <Container size={620} my={40} mt='250px' p={0} className='container-shadow' style={{backgroundColor: 'white'}}>
-          <Nav isRegistration={path === PATH.BASE_REGISTRATION}/>
+          <Nav isRegistration={path === PATH.REGISTRATION}/>
           <br/>
           <Container style={{backgroundColor: 'white'}}>
             <div style={{width: '100%'}}>
               {path === PATH.LOGIN && <Login submit={login}/>}
-              {path === PATH.BASE_REGISTRATION && <RegistrationForm submit={registration}/>}
+              {path === PATH.REGISTRATION && <RegistrationForm submit={registration}/>}
             </div>
           </Container>
       </Container>

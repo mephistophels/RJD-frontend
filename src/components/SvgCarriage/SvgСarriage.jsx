@@ -1,6 +1,10 @@
 import './SvgCarriage.css'
 import React, {useEffect} from "react";
-import {Text, Badge, Card, Group, HoverCard, HoverCardDropdown, Modal, Title} from "@mantine/core";
+import {Text, Badge, Card, Group, HoverCard, HoverCardDropdown, Modal, Title, Button, Space} from "@mantine/core";
+import dayjs from "dayjs";
+import {useSetState} from "@mantine/hooks";
+import {useSearchParams} from "react-router-dom";
+import {useSearchParamsForm} from "../../hooks";
 
 export function rateToColor(rate, l=1, s=1) {
     const hue = rate**0.5 * 120
@@ -34,10 +38,34 @@ export const SvgCarriage = () => {
                 dropdown.style.top = `${e.clientY}px`
                 dropdown.style.left = `${e.clientX}px`
             })
+            seat.addEventListener('click', e => {
+                SetIsOpen(true)
+                setState({place: i+1})
+            })
         })
     }, []);
+
+    const [isOpen, SetIsOpen] = React.useState(false)
+    const {values} = useSearchParamsForm()
+    const {carriage, from, to, date, trainType, fromTime, toTime} = values
+    const [state, setState] = useSetState({
+        place: 0,
+    })
     return (
         <div>
+            <Modal title='Подтверждение билета' opened={isOpen} onClose={()=>SetIsOpen(false)}>
+                <Group>
+                    <Title order={4}>{from} → {to}</Title>
+                    <Title order={4}>{fromTime} → {toTime}</Title>
+                </Group>
+                    <Title>Вагон: {carriage}, Место: {state.place}</Title>
+                    <Text>
+                        {dayjs(date).locale('ru').format('DD MMMM YYYY')}
+                    </Text>
+                    <Text>{trainType}</Text>
+                <Space h='sm'/>
+                <Button onClick={()=>SetIsOpen(false)}>Забронировать</Button>
+            </Modal>
             <div id='dropdown'>
                 <Card withBorder w='300px'>
                     <Title order={4}>Иван иванович иванов</Title>

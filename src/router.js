@@ -4,7 +4,8 @@ import {Wrapper} from "./components/Wrapper";
 import {PATH} from "./consts";
 import Auth from "./pages/auth/Auth";
 import OrderRegistration from "./pages/auth/OrderRegistration";
-import {Home} from "./pages/Home";
+import {ChooseTrip} from "./pages/ChooseTrip";
+import {ChoosePlace} from "./pages/ChoosePlace";
 
 export const router = createBrowserRouter([
     {
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
         element: <Auth />
     },
     {
-        path: PATH.BASE_REGISTRATION,
+        path: PATH.REGISTRATION,
         element: <Auth />
     },
     {
@@ -21,12 +22,16 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: PATH.HOME,
-                element: <Home/>,
+                element: <ChooseTrip/>,
             },
             {
                 path: PATH.ORDER_REGISTRATION,
                 element: <OrderRegistration />,
             },
+            {
+                path: PATH.CHOOSE_PLACE,
+                element: <ChoosePlace />,
+            }
         ]
     }
 ]);

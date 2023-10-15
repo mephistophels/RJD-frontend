@@ -3,6 +3,8 @@ import React from "react";
 import {Coin} from "../res/icons/coin";
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../consts";
 
 export const TripCard = ({
                              fromTime, toTime,
@@ -13,7 +15,20 @@ export const TripCard = ({
                              price,
                          }) => {
 
-    console.log(date)
+    const navigate = useNavigate()
+    function choosePlace() {
+        const params = new URLSearchParams({
+            date: dayjs(date).format('YYYY-MM-DD'),
+            trainType,
+            from,
+            to,
+            price,
+            fromTime,
+            toTime,
+        })
+        navigate(`${PATH.CHOOSE_PLACE}?${params.toString()}`)
+    }
+
 
     return (
         <Card withBorder mb={20}>
@@ -27,13 +42,13 @@ export const TripCard = ({
                     </Text>
                     <Text>{trainType}</Text>
                 </div>
-                <Stack justify='space-between'>
+                <Stack justify='space-between' align='flex-end'>
                     <Group gap={5}>
-                        <Title order={4}>${price}</Title>
+                        <Title order={4}>{price}</Title>
                         <Coin color='black'/>
                     </Group>
-                    <Button>
-                        Купить
+                    <Button onClick={choosePlace}>
+                        Выбрать место
                     </Button>
                 </Stack>
 
