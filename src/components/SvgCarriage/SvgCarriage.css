@@ -44,9 +44,15 @@ text{
 }
 .above{}
 
-.seat:hover {
-    filter: drop-shadow(0px 5px 10px rgb(54, 83, 141));
+.seat.hover {
+    filter: drop-shadow(0px 5px 20px rgb(54, 83, 141));
     fill: rgb(119, 146, 197);
+}
+/*.seat:hover{*/
+/*    filter: drop-shadow(0px 5px 20px var(--color));*/
+/*}*/
+.seat.taken{
+    cursor: auto;
 }
 
 #dropdown{
@@ -57,6 +63,6 @@ text{
     pointer-events: none;
     box-shadow: 0px 10px 20px rgba(54, 83, 141, 0.43);
 }
-.hover{
+#dropdown.hover{
     opacity: 1!important;
 }
