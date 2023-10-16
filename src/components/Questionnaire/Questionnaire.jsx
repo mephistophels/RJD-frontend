@@ -70,7 +70,7 @@ const Questionnaire = ({
             placeholder=""
             inputMode='text'
             {...questionnaire.bio}
-          />
+            />
           <br/>
           <InputLabel>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</InputLabel>
           {CheckboxWords.map((e, i) => (

@@ -1,6 +1,19 @@
 import {SvgCarriage} from "../components/SvgCarriage/SvgСarriage";
 import React, {useEffect, useMemo, useState} from "react";
-import {Space, Title, Text, SegmentedControl, Group, Stack, Paper, Button, Avatar, Card, Modal} from "@mantine/core";
+import {
+    Space,
+    Title,
+    Text,
+    SegmentedControl,
+    Group,
+    Stack,
+    Paper,
+    Button,
+    Avatar,
+    Card,
+    Modal,
+    Badge
+} from "@mantine/core";
 import dayjs from "dayjs";
 import {useSearchParamsForm} from "../hooks";
 import { api } from "../api";
@@ -91,7 +104,12 @@ export const ChoosePlace = () => {
                     </Stack>
                 </Group>
                 <Space h={20}/>
+                <Group>
                 <Title order={2}>Схема вагона</Title>
+                    <Badge color='#87a4ff'>Занято</Badge>
+                    <Badge color='hsl(90, 60%, 56%)'>Подходящее место</Badge>
+                    <Badge color='hsl(20, 60%, 56%)'>Неподходящее место</Badge>
+                </Group>
                 <Space h={20}/>
                 {carriageData && <SvgCarriage data={carriageData} choosePlace={choosePlace}/>}
                 <Space h={20}/>

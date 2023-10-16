@@ -8,29 +8,28 @@ import {useSearchParamsForm} from "../../hooks";
 
 
 export function rateToColor(rate, l=1, s=1.2) {
-
-    //если юзера нет == рейтинг - 0 => серый
-    if (rate == 0)
-        return `hsl(0, 0%, ${80*l}%)`;
-
+    if(rate === 0) rate = 0.2
     const hue = rate**0.5 * 120
-    const saturation = 50*s
+    const saturation = 50*s + (1-rate)*20
     const lightness = 70*l
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-}
-function checkUserExist(place) {
-    return place.user ? rateToColor(place.rating, 0.35) : rateToColor(place.rating);
 }
 export const SvgCarriage = ({
   data,
   choosePlace,
 }) => {
     const { places } = data;
+    const [isOpen, SetIsOpen] = React.useState(false)
+    const {values} = useSearchParamsForm()
+    const {carriage, from, to, date, trainType, fromTime, toTime} = values
+    const [state, setState] = useSetState({
+        place: 0,
+        curPlace: 0,
+        user: null
+    })
     useEffect(() => {
         console.log(places)
-    }, [data]);
-    // len 36
-    // const seatsRate = [0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8]
+    }, [places]);
     useEffect(() => {
         const seats = []
         const dropdown = document.getElementById('dropdown')
@@ -42,13 +41,19 @@ export const SvgCarriage = ({
             if (i % 2) {
                 seat.classList.add('above')
             }
-            seat.style.setProperty('--color', checkUserExist(places[i]))
-            seat.style.setProperty('--shadow-color', rateToColor(places[i].rating, 0.8))
+            if (places[i].user) {
+                seat.classList.add('taken')
+            }
+            seat.style.setProperty('--color', places[i].user ? '#87a4ff' : rateToColor(places[i].rating, 0.8))
+            seat.style.setProperty('--shadow-color', places[i].user ? '#87a4ff' : rateToColor(places[i].rating))
             seat.addEventListener('mouseover', () => {
-                dropdown.className = 'hover'
+                dropdown.classList.add('hover')
+                seat.classList.add('hover')
+                setState({user: places[i].user, curPlace: i+1})
             })
             seat.addEventListener('mouseout', () => {
-                dropdown.className = ''
+                dropdown.classList.remove('hover')
+                seat.classList.remove('hover')
             })
             seat.addEventListener('mousemove', e => {
                 dropdown.style.top = `${e.clientY}px`
@@ -60,13 +65,7 @@ export const SvgCarriage = ({
             })
         })
     }, [data]);
-
-    const [isOpen, SetIsOpen] = React.useState(false)
-    const {values} = useSearchParamsForm()
-    const {carriage, from, to, date, trainType, fromTime, toTime} = values
-    const [state, setState] = useSetState({
-        place: 0,
-    })
+    const user = state?.user
     return (
         <div>
             <Modal title='Подтверждение выбора места' opened={isOpen} onClose={()=>SetIsOpen(false)}>
@@ -74,7 +73,7 @@ export const SvgCarriage = ({
                     <Title order={4}>{from} → {to}</Title>
                     <Title order={4}>{fromTime} → {toTime}</Title>
                 </Group>
-                    <Title>Вагон: {carriage}, Место: {state.place}</Title>
+                    <Title>Вагон: {carriage}, Место: {state?.place}</Title>
                     <Text>
                         {dayjs(date).locale('ru').format('DD MMMM YYYY')}
                     </Text>
@@ -82,19 +81,24 @@ export const SvgCarriage = ({
                 <Space h='sm'/>
                 <Button onClick={()=>{
                     SetIsOpen(false);
-                    choosePlace(state.place);
+                    choosePlace(state?.place);
                 }}>Забронировать</Button>
             </Modal>
             <div id='dropdown'>
+
                 <Card withBorder w='300px'>
-                    <Title order={4}>Иван иванович иванов</Title>
-                    <Group>
-                        <Badge>Спорт</Badge>
-                        <Badge>Политика</Badge>
-                        <Badge>Самогон</Badge>
-                        <Badge>Резня</Badge>
+                    <Title order={5}>Место: {state?.curPlace}</Title>
+                    {!user && <Group><Text>Рекомендуем на:</Text><Badge variant='filled' color={rateToColor(places[state?.curPlace-1]?.rating, 0.6)}>{Math.min((places[state?.curPlace-1]?.rating*15), 5).toFixed(2)}/5</Badge></Group>}
+                    {user && <><Title order={4}>{user.questionnaire.name} {user.questionnaire.surname} {user.questionnaire.patronymic}</Title>
+                    <Group gap={5}>
+                        {!!user.questionnaire.tags?.length && user.questionnaire.tags.map((tag, idx) =>
+                        <Badge key={idx}>{tag}</Badge>
+                        )}
+                        {/*{['Живопись', 'Физика'].map((tag, idx) =>*/}
+                        {/*    <Badge key={idx}>{tag}</Badge>*/}
+                        {/*)}*/}
                     </Group>
-                    <Text>+7 999 999 99 99</Text>
+                    <Text>+7 985 612 84 75</Text></>}
                 </Card>
             </div>
             <svg id='carriage' xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100%"
