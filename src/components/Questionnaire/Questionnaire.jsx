@@ -72,19 +72,19 @@ const Questionnaire = ({
             {...questionnaire.bio}
             />
           <br/>
-          <InputLabel>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</InputLabel>
-          {CheckboxWords.map((e, i) => (
-            <Checkbox 
-              name={e + i} 
-              key={e + i} 
-              label={e} 
-              mb={5} 
-              checked={questionnaire.checkBox.includes(e)} 
-              onClick={() => questionnaire.setCheckBox(e)}
-            />
-            ))}
-          <br/>
-          <InputLabel>Добавьте что нибудь</InputLabel>
+          <InputLabel>Введите ваши увлечения:</InputLabel>
+          {/*<Space h={10}/>*/}
+          {/*{CheckboxWords.map((e, i) => (*/}
+          {/*  <Checkbox */}
+          {/*    name={e + i} */}
+          {/*    key={e + i} */}
+          {/*    label={e} */}
+          {/*    mb={5} */}
+          {/*    checked={questionnaire.checkBox.includes(e)} */}
+          {/*    onClick={() => questionnaire.setCheckBox(e)}*/}
+          {/*  />*/}
+          {/*  ))}*/}
+          {/*<br/>*/}
           <TagsInput
             placeholder="Введите или выберите значение"
             data={TagInputWords}

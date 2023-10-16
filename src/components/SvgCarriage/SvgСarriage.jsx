@@ -8,6 +8,7 @@ import {useSearchParamsForm} from "../../hooks";
 
 
 export function rateToColor(rate, l=1, s=1.2) {
+    if(rate === 0) rate = 0.2
     const hue = rate**0.5 * 120
     const saturation = 50*s + (1-rate)*20
     const lightness = 70*l
@@ -87,7 +88,7 @@ export const SvgCarriage = ({
 
                 <Card withBorder w='300px'>
                     <Title order={5}>Место: {state?.curPlace}</Title>
-                    {!user && <Group><Text>Рекомендуем на:</Text><Badge color={rateToColor(places[state?.curPlace-1]?.rating, 0.8)}>{Math.min((places[state?.curPlace-1]?.rating*15), 5).toFixed(2)}/5</Badge></Group>}
+                    {!user && <Group><Text>Рекомендуем на:</Text><Badge variant='filled' color={rateToColor(places[state?.curPlace-1]?.rating, 0.6)}>{Math.min((places[state?.curPlace-1]?.rating*15), 5).toFixed(2)}/5</Badge></Group>}
                     {user && <><Title order={4}>{user.questionnaire.name} {user.questionnaire.surname} {user.questionnaire.patronymic}</Title>
                     <Group gap={5}>
                         {!!user.questionnaire.tags?.length && user.questionnaire.tags.map((tag, idx) =>
