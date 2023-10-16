@@ -6,15 +6,31 @@ import {useSetState} from "@mantine/hooks";
 import {useSearchParams} from "react-router-dom";
 import {useSearchParamsForm} from "../../hooks";
 
-export function rateToColor(rate, l=1, s=1) {
+
+export function rateToColor(rate, l=1, s=1.2) {
+
+    //если юзера нет == рейтинг - 0 => серый
+    if (rate == 0)
+        return `hsl(0, 0%, ${80*l}%)`;
+
     const hue = rate**0.5 * 120
     const saturation = 50*s
     const lightness = 70*l
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
-export const SvgCarriage = () => {
+function checkUserExist(place) {
+    return place.user ? rateToColor(place.rating, 0.35) : rateToColor(place.rating);
+}
+export const SvgCarriage = ({
+  data,
+  choosePlace,
+}) => {
+    const { places } = data;
+    useEffect(() => {
+        console.log(places)
+    }, [data]);
     // len 36
-    const seatsRate = [0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8]
+    // const seatsRate = [0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8, 0.8, 0.5, 0.3, 0.2, 0.1, 0.1, 0.1, 0.2, 0.3, 0.5, 0.8]
     useEffect(() => {
         const seats = []
         const dropdown = document.getElementById('dropdown')
@@ -26,8 +42,8 @@ export const SvgCarriage = () => {
             if (i % 2) {
                 seat.classList.add('above')
             }
-            seat.style.setProperty('--color', rateToColor(seatsRate[i]))
-            seat.style.setProperty('--shadow-color', rateToColor(seatsRate[i], 0.8))
+            seat.style.setProperty('--color', checkUserExist(places[i]))
+            seat.style.setProperty('--shadow-color', rateToColor(places[i].rating, 0.8))
             seat.addEventListener('mouseover', () => {
                 dropdown.className = 'hover'
             })
@@ -43,7 +59,7 @@ export const SvgCarriage = () => {
                 setState({place: i+1})
             })
         })
-    }, []);
+    }, [data]);
 
     const [isOpen, SetIsOpen] = React.useState(false)
     const {values} = useSearchParamsForm()
@@ -53,7 +69,7 @@ export const SvgCarriage = () => {
     })
     return (
         <div>
-            <Modal title='Подтверждение билета' opened={isOpen} onClose={()=>SetIsOpen(false)}>
+            <Modal title='Подтверждение выбора места' opened={isOpen} onClose={()=>SetIsOpen(false)}>
                 <Group>
                     <Title order={4}>{from} → {to}</Title>
                     <Title order={4}>{fromTime} → {toTime}</Title>
@@ -64,7 +80,10 @@ export const SvgCarriage = () => {
                     </Text>
                     <Text>{trainType}</Text>
                 <Space h='sm'/>
-                <Button onClick={()=>SetIsOpen(false)}>Забронировать</Button>
+                <Button onClick={()=>{
+                    SetIsOpen(false);
+                    choosePlace(state.place);
+                }}>Забронировать</Button>
             </Modal>
             <div id='dropdown'>
                 <Card withBorder w='300px'>
