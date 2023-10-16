@@ -17,6 +17,8 @@ export function rateToColor(rate, l=1, s=1.2) {
 export const SvgCarriage = ({
   data,
   choosePlace,
+  myPlace,
+  companionsPlaces,
 }) => {
     const { places } = data;
     const [isOpen, SetIsOpen] = React.useState(false)
@@ -27,9 +29,26 @@ export const SvgCarriage = ({
         curPlace: 0,
         user: null
     })
-    useEffect(() => {
-        console.log(places)
-    }, [places]);
+
+    function findInCompanions(idx) {
+        for (const i in companionsPlaces) {
+            if (companionsPlaces[i].place === idx + 1 && companionsPlaces[i].carriage === carriage)
+                return true
+        }
+        return false
+    }
+
+    function checkUserPlace(i, l=1) {
+
+        if (!places[i].user) return rateToColor(places[i].rating, l);
+        if (myPlace
+            && i + 1 === myPlace.place
+            && carriage === myPlace.carriage
+            || findInCompanions(i)
+        ) return '#F4A0FF';
+        return '#87a4ff';
+    }
+
     useEffect(() => {
         const seats = []
         const dropdown = document.getElementById('dropdown')
@@ -44,8 +63,8 @@ export const SvgCarriage = ({
             if (places[i].user) {
                 seat.classList.add('taken')
             }
-            seat.style.setProperty('--color', places[i].user ? '#87a4ff' : rateToColor(places[i].rating, 0.8))
-            seat.style.setProperty('--shadow-color', places[i].user ? '#87a4ff' : rateToColor(places[i].rating))
+            seat.style.setProperty('--color', checkUserPlace(i, 0.8))
+            seat.style.setProperty('--shadow-color', checkUserPlace(i))
             seat.addEventListener('mouseover', () => {
                 dropdown.classList.add('hover')
                 seat.classList.add('hover')
@@ -60,8 +79,11 @@ export const SvgCarriage = ({
                 dropdown.style.left = `${e.clientX}px`
             })
             seat.addEventListener('click', e => {
-                SetIsOpen(true)
-                setState({place: i+1})
+                  if (places[i].user) {
+                        return
+                  }
+                  SetIsOpen(true)
+                  setState({place: i+1})
             })
         })
     }, [data]);

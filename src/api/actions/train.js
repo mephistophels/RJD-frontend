@@ -94,8 +94,8 @@ const train = {
     }))
 }
 
-export const getCarriage = (data) =>
-    (async () => train.carriages[data.carriage - 1])()
+export const getTrain = (data) =>
+    (async () => train)()
 
 export const postCreateCompanion = (data) =>
     axiosInstance.post(API.COMPANION_CREATE, data)
