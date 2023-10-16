@@ -40,9 +40,8 @@ export function useQuestionnaire(/*initValues*/) {
     ...values,
     image,
     tags: [...tagInput, ...checkBox],
-    answers: radio.filter((v, i) => i !== 8),
+    answers: radio,
     sex,
-    isSick: radio[8] === 'Да.'
   };
 
   return {

@@ -63,28 +63,28 @@ const Questionnaire = ({
             />
           </Group>
           <br />
-          {/*<Title>Расскажите о себе</Title>*/}
-          {/*<Textarea*/}
-          {/*  required*/}
-          {/*  label="Это поможет подобрать вам лучших попутчиков"*/}
-          {/*  placeholder=""*/}
-          {/*  inputMode='text'*/}
-          {/*  {...questionnaire.bio}*/}
-          {/*  />*/}
-          {/*<br/>*/}
-          <InputLabel>Введите интересные вам темы:</InputLabel>
-          {/*<Space h={10}/>*/}
-          {/*{CheckboxWords.map((e, i) => (*/}
-          {/*  <Checkbox */}
-          {/*    name={e + i} */}
-          {/*    key={e + i} */}
-          {/*    label={e} */}
-          {/*    mb={5} */}
-          {/*    checked={questionnaire.checkBox.includes(e)} */}
-          {/*    onClick={() => questionnaire.setCheckBox(e)}*/}
-          {/*  />*/}
-          {/*  ))}*/}
-          {/*<br/>*/}
+          <Title>Расскажите о себе</Title>
+          <Textarea
+            required
+            label="Это поможет подобрать вам лучших попутчиков"
+            placeholder=""
+            inputMode='text'
+            {...questionnaire.bio}
+            />
+          <br/>
+          <InputLabel>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</InputLabel>
+          {CheckboxWords.map((e, i) => (
+            <Checkbox 
+              name={e + i} 
+              key={e + i} 
+              label={e} 
+              mb={5} 
+              checked={questionnaire.checkBox.includes(e)} 
+              onClick={() => questionnaire.setCheckBox(e)}
+            />
+            ))}
+          <br/>
+          <InputLabel>Добавьте что нибудь</InputLabel>
           <TagsInput
             placeholder="Введите или выберите значение"
             data={TagInputWords}
@@ -108,13 +108,13 @@ const Questionnaire = ({
                 </InputLabel>
                 {e.answers.map((g, j) => (
                   <Radio 
-                  required 
-                  name={e.question + i} 
-                  key={g + j} 
-                  label={g} 
-                  mb={8}
-                  checked={questionnaire.radio[i] === g}
-                  onClick={() => questionnaire.setRadio(i, g)}
+                    required 
+                    name={e.question + i} 
+                    key={g + j} 
+                    label={g} 
+                    mb={8}
+                    checked={questionnaire.radio[i] === j}
+                    onClick={() => questionnaire.setRadio(i, j)}
                   />
                 ))}
               </Container>
