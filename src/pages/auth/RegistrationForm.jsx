@@ -31,6 +31,7 @@ const RegistrationFrom = ({submit}) => {
             showAlert('Необходимо заполнить анкету!');
             return;
         }
+        console.log(questionnaire.dto)
         submit({
             ...values,
             questionnaire: questionnaire.dto,

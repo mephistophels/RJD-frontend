@@ -70,7 +70,7 @@ const Questionnaire = ({
             placeholder=""
             inputMode='text'
             {...questionnaire.bio}
-            />
+          />
           <br/>
           <InputLabel>Выберете несколько ключевых слов, описывающих вас наилучшим образом:</InputLabel>
           {CheckboxWords.map((e, i) => (
@@ -108,13 +108,13 @@ const Questionnaire = ({
                 </InputLabel>
                 {e.answers.map((g, j) => (
                   <Radio 
-                  required 
-                  name={e.question + i} 
-                  key={g + j} 
-                  label={g} 
-                  mb={8}
-                  checked={questionnaire.radio[i] === g}
-                  onClick={() => questionnaire.setRadio(i, g)}
+                    required 
+                    name={e.question + i} 
+                    key={g + j} 
+                    label={g} 
+                    mb={8}
+                    checked={questionnaire.radio[i] === j}
+                    onClick={() => questionnaire.setRadio(i, j)}
                   />
                 ))}
               </Container>
