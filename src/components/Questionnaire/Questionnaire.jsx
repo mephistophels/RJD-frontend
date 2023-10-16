@@ -63,16 +63,16 @@ const Questionnaire = ({
             />
           </Group>
           <br />
-          <Title>Расскажите о себе</Title>
-          <Textarea
-            required
-            label="Это поможет подобрать вам лучших попутчиков"
-            placeholder=""
-            inputMode='text'
-            {...questionnaire.bio}
-            />
-          <br/>
-          <InputLabel>Введите ваши увлечения:</InputLabel>
+          {/*<Title>Расскажите о себе</Title>*/}
+          {/*<Textarea*/}
+          {/*  required*/}
+          {/*  label="Это поможет подобрать вам лучших попутчиков"*/}
+          {/*  placeholder=""*/}
+          {/*  inputMode='text'*/}
+          {/*  {...questionnaire.bio}*/}
+          {/*  />*/}
+          {/*<br/>*/}
+          <InputLabel>Введите интересные вам темы:</InputLabel>
           {/*<Space h={10}/>*/}
           {/*{CheckboxWords.map((e, i) => (*/}
           {/*  <Checkbox */}

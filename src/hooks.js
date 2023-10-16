@@ -8,7 +8,8 @@ export const useForm = (initialValues) => {
     const [values, setValues] = useState(initialValues);
 
     const createChangeHandler = useCallback((name) => (event) => {
-        const value = event.target?.value || event;
+        let value = event.target?.value || event;
+        if(value.toString() === '[object Object]') value = ''
         setValues(prevValues => ({
             ...prevValues,
             [name]: value
@@ -61,6 +62,7 @@ export const useSearchParamsForm = (initialValues) => {
     }, []);
     const createChangeHandler = useCallback((name) => (event) => {
         let value = event.target?.value || event;
+        if(value === '[object Object]') value = ''
         setValues({
             ...values,
             [name]: value
