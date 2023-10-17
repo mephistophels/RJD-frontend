@@ -16,7 +16,7 @@ const users = [
                 "алгоритмы",
                 "филология"
             ],
-            answers: [
+            answers: [2,
                 "Я всегда готов к новым приключениям и встречам.",
                 "Это часть жизни, с которой я справляюсь.",
                 "Я в восторге от этого.",
@@ -25,8 +25,7 @@ const users = [
                 "Активно.",
                 "Яркая.",
                 "Я предпочитаю предложить конкретную помощь или действие."
-            ],
-            isSick: false
+            ].map(() => Math.floor(Math.random() * 3)),
         },
         email: "petrov@example.com"
     },
@@ -42,7 +41,7 @@ const users = [
                 "Мультипликация",
                 "Опера",
             ],
-            answers: [
+            answers: [2,
                 "Я ценю глубокие разговоры и искренние отношения.",
                 "Я стараюсь не думать об этом.",
                 "Это может быть интересным опытом.",
@@ -51,8 +50,7 @@ const users = [
                 "Спокойно.",
                 "Уютная теплота.",
                 "Я предпочитаю быть рядом и оказывать моральную поддержку."
-            ],
-            isSick: false
+            ].map(() => Math.floor(Math.random() * 3)),
         },
         email: "smirnova@example.com"
     },
@@ -69,7 +67,7 @@ const users = [
                 "шашки",
                 "самбо"
             ],
-            answers: [
+            answers: [2,
                 "Я открыт для дружбы и искренних встреч.",
                 "Я стараюсь принимать вещи такими, какие они есть.",
                 "Я бы хотел это попробовать.",
@@ -78,8 +76,7 @@ const users = [
                 "С энтузиазмом.",
                 "Теплая неоновая.",
                 "Я рядом, чтобы слушать и поддерживать."
-            ],
-            isSick: false
+            ].map(() => Math.floor(Math.random() * 3)),
         },
         email: "vasiliev@example.com"
     }
@@ -94,8 +91,9 @@ const train = {
     }))
 }
 
-export const getTrain = (data) =>
-    (async () => train)()
+export const getTrain = (data) => 
+    axiosInstance.post(API.RECOMENDATION, data);
+    // (async () => train)()
 
 export const postCreateCompanion = (data) =>
     axiosInstance.post(API.COMPANION_CREATE, data)

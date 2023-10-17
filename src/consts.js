@@ -16,4 +16,5 @@ export const API = {
     COMPANION_CREATE: '/user/companion',
     TICKET: '/ticket',
     ME: '/user/me',
+    RECOMENDATION: '/recommendation',
 }

@@ -47,7 +47,7 @@ export function useQuestionnaire(/*initValues*/) {
     name: name.value,
     patronymic: patronymic.value,
     birthday: birthday.value,
-    image,
+    avatar: image,
   }
 
   return {

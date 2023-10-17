@@ -11,6 +11,7 @@ import {
   Space, 
   InputLabel
 } from '@mantine/core';
+import PhoneInput from 'react-phone-input-2';
 
 const QuestionnaireBaby = ({
   submit,
@@ -57,7 +58,7 @@ const QuestionnaireBaby = ({
             />
           </Group>
           <Space h={10} />
-          <Group>
+          {/* <Group>
             <InputLabel>У вас есть проблемы со здоровьем?<span style={{color: 'red'}}>*</span></InputLabel>
             <Radio 
               required
@@ -73,7 +74,13 @@ const QuestionnaireBaby = ({
               checked={questionnaire.isSick === 'Нет.'} 
               onClick={() => questionnaire.setIsSick('Нет.')}
             />
-          </Group>
+          </Group> */}
+          <InputLabel>Номер</InputLabel>
+          <PhoneInput
+            country={'ru'}
+            width={'100%'}
+            {...questionnaire.phone}
+          />
           <Group justify='center'>
             <Button type="submit" mt="20px" size='xl'>
               Готово

@@ -26,29 +26,16 @@ import { showAlert } from "../utils";
 
 const ticketCost = 1000;
 
-const MyProfile = {
-    questionnaire: {
-        name: '123123',
-        surname: '123123',
-        patronymic: '123123',
-        tags: [
-            '1', '2', '3'
-        ],
-    },
-    phone: '123123123',
-    email: '123123123@mail.ru',
-}
-
 export const ChoosePlace = () => {
 
     const {values, carriage} = useSearchParamsForm({carriage: 1})
     const {from, to, date, trainType, fromTime, toTime} = values
     const [trainData, setTrainData] = useState(null);
 
-    const [me, setMe] = useState(null);
+    const [MyProfile, setMe] = useState(null);
     useEffect(() => {
-        api.auth.getMe().then(data => setMe(data));
-    }, [])
+        api.auth.getMe().then(data => setMe(data.data));
+    }, []);
 
     const [myPlace, setMyPlace] = useState(null);
     const [cost, setCost] = useState(0);
@@ -64,13 +51,16 @@ export const ChoosePlace = () => {
 
     useEffect(() => {
         api.user.getCompanionList()
-        .then(data => setMyCompanios(data));
+        .then(data => {setMyCompanios(data.data.content); console.log(data.data.content)});
     }, []);
 
+
     useEffect(() => {
-        api.train.getTrain()
-        .then(data => setTrainData(data));
-    }, []);
+        if (trainType) {
+            api.train.getTrain({trainNumber: 1, date: new Date(date)})
+            .then(data => setTrainData(data.data)).catch(e => showAlert(e.response?.data?.message));
+        }
+    }, [trainType]);
 
     function appendUserToTrain(place, carriage_, user) {
         setTrainData(prev => ({
@@ -113,10 +103,38 @@ export const ChoosePlace = () => {
         }
     }
 
+    const buyTicket = () => {
+        api.ticket.postTicket({
+            date: new Date(date),
+            trainNumber: trainType,
+            carriage: myPlace.carriage,
+            carriageType: "COUPE",
+            place: myPlace.place,
+            userId: MyProfile.id,
+            companionId : null,
+        });
+        for (const companion of companions) {
+            api.ticket.postTicket({
+                date: new Date(date),
+                trainNumber: trainType,
+                carriage: companion.carriage,
+                carriageType: "COUPE",
+                place: companion.place,
+                userId: MyProfile.id,
+                companionId: companion.id,
+            });
+        }
+        setShowConfirm(false);
+    }
+
     const addCompanionSubmit = () => {
-        setMyCompanios(prev => [...prev, {questionnaire: questionnaire.dto}]);
-        questionnaire.clear();
-        setShow(false);
+        api.user.postCreateCompanion(questionnaire.dto)
+        .then(data => {
+            setMyCompanios(prev => [...prev, data.data]);
+            questionnaire.clear();
+            setShow(false);
+        })
+        .catch(e => showAlert(e.response?.data?.message));
     }
     useEffect(() => {
         console.log(trainData)
@@ -140,7 +158,7 @@ export const ChoosePlace = () => {
                     </Title>
                 </Container>
                 <Space h='lg'/>
-                <Button onClick={() => setShowConfirm(false)}>Оплатить</Button>
+                <Button onClick={() => buyTicket()}>Оплатить</Button>
             </Modal>
             <Modal
                 opened={show}
@@ -160,7 +178,7 @@ export const ChoosePlace = () => {
                         <Text>
                             {dayjs(date).locale('ru').format('DD MMMM YYYY')}
                         </Text>
-                        <Text>{trainType}</Text>
+                        <Text>{['Волга', 'Арктика', 'Премиум'][trainType - 1]}</Text>
                     </Stack>
                 </Group>
                 <Space h={20}/>
@@ -223,7 +241,7 @@ export const ChoosePlace = () => {
                                 :companions.map((e, idx) => (
                                     <Companion 
                                         key={idx} 
-                                        data={e.questionnaire}
+                                        data={e}
                                         place={e.place}
                                         carriage={e.carriage}
                                         remove={() => {
@@ -247,7 +265,7 @@ export const ChoosePlace = () => {
                                         movable={idx === moveComponentId}
                                         showPlace={false}
                                         key={idx}
-                                        data={e.questionnaire}
+                                        data={e}
                                         onClick={() => setMoveComponentId(idx)}
                                         my={true}
                                     />
@@ -279,7 +297,7 @@ const Companion = ({data, remove, showPlace, onClick, movable, my, showRemove, p
               <Avatar ml={20}/>
               <Card>
                 <Title size='md'>
-                  {data.name} {data.surname} {data.patronymic}
+                  {data?.name} {data?.surname} {data?.patronymic}
                 </Title>
                 {showPlace && <Text>
                     Вагон: {carriage} Место: {place} 

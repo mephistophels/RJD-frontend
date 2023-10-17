@@ -12,22 +12,23 @@ export function useQuestionnaireBaby(/*initValues*/) {
     surname, 
     patronymic, 
     birthday,
+    phone,
   } = useForm({
     name: '', 
     surname: '', 
     patronymic: '', 
     birthday: '',
+    phone: '',
   });
   const [image, setImage] = useState(null);
   const [sex, setSex] = useState('');
   const [isCompeted, setIsCompeted] = useState(false);
-  const [isSick, setIsSick] = useState(null);
 
   const clear = () => {
     setImage(null);
     setSex('');
     setIsCompeted(false);
-    setIsSick(null);
+    phone.onChange('');
     name.onChange('');
     surname.onChange('');
     patronymic.onChange('');
@@ -36,22 +37,20 @@ export function useQuestionnaireBaby(/*initValues*/) {
 
   const dto = {
     ...values,
-    image,
+    avatar: image,
     sex,
-    isSick: isSick === 'Да.'
   };
 
   return {
     dto,
     values,
+    phone,
     name, 
     surname, 
     patronymic, 
     birthday,
     isCompeted,
     setIsCompeted,
-    isSick,
-    setIsSick,
     image,
     setImage,
     sex, 

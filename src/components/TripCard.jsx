@@ -40,7 +40,7 @@ export const TripCard = ({
                     <Text>
                         {dayjs(date).locale('ru').format('DD MMMM YYYY')}
                     </Text>
-                    <Text>{trainType}</Text>
+                    <Text>{['Волга', 'Арктика', 'Премиум'][trainType - 1]}</Text>
                 </div>
                 <Stack justify='space-between' align='flex-end'>
                     <Group gap={5}>

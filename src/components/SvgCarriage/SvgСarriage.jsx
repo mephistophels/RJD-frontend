@@ -111,9 +111,9 @@ export const SvgCarriage = ({
                 <Card withBorder w='300px'>
                     <Title order={5}>Место: {state?.curPlace}</Title>
                     {!user && <Group><Text>Рекомендуем на:</Text><Badge variant='filled' color={rateToColor(places[state?.curPlace-1]?.rating, 0.6)}>{(places[state?.curPlace-1]?.rating**0.5*5).toFixed(2)}/5</Badge></Group>}
-                    {user && <><Title order={4}>{user.questionnaire.name} {user.questionnaire.surname} {user.questionnaire.patronymic}</Title>
+                    {user && <><Title order={4}>{user.name} {user.surname} {user.patronymic}</Title>
                     <Group gap={5}>
-                        {!!user.questionnaire.tags?.length && user.questionnaire.tags.map((tag, idx) =>
+                        {!!user.tag?.length && user?.tag?.map((tag, idx) =>
                         <Badge key={idx}>{tag}</Badge>
                         )}
                         {/*{['Живопись', 'Физика'].map((tag, idx) =>*/}
