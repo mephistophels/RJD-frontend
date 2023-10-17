@@ -45,6 +45,11 @@ export const ChoosePlace = () => {
     const {from, to, date, trainType, fromTime, toTime} = values
     const [trainData, setTrainData] = useState(null);
 
+    const [me, setMe] = useState(null);
+    useEffect(() => {
+        api.auth.getMe().then(data => setMe(data));
+    }, [])
+
     const [myPlace, setMyPlace] = useState(null);
     const [cost, setCost] = useState(0);
 

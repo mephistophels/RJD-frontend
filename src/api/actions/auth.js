@@ -15,3 +15,7 @@ export const postRegistration = (data, navigateTo) =>
     axiosInstance.post(API.REGISTRATION, data)
     .then(() => postLogin(data, navigateTo))
     .catch(e => showAlert(e.response?.data?.message));
+
+export const getMe = () => 
+    axiosInstance.get(API.ME)
+    .catch(e => showAlert(e.response?.data?.message));
