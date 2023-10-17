@@ -34,6 +34,7 @@ const RegistrationFrom = ({submit}) => {
         console.log(questionnaire.dto)
         submit({
             ...values,
+            ...questionnaire.dtoOther,
             questionnaire: questionnaire.dto,
         });
     }

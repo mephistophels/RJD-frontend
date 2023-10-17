@@ -37,15 +37,22 @@ export function useQuestionnaire(/*initValues*/) {
   const [isCompeted, setIsCompeted] = useState(false);
 
   const dto = {
-    ...values,
-    image,
     tags: [...tagInput, ...checkBox],
     answers: radio,
-    sex,
+    bio: bio.value,
   };
+  const dtoOther = {
+    sex,
+    surname: surname.value,
+    name: name.value,
+    patronymic: patronymic.value,
+    birthday: birthday.value,
+    // image,
+  }
 
   return {
     dto,
+    dtoOther,
     values,
     name, 
     surname, 
