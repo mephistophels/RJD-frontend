@@ -1,4 +1,4 @@
-import {createBrowserRouter,} from "react-router-dom";
+import {createBrowserRouter, Navigate,} from "react-router-dom";
 import "./index.css";
 import {Wrapper} from "./components/Wrapper";
 import {PATH} from "./consts";
@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
     {
         path: PATH.REGISTRATION,
         element: <Auth />
+    },
+    {
+        path: '/',
+        element: <Navigate to={PATH.LOGIN}/>
     },
     {
         path: PATH.HOME,

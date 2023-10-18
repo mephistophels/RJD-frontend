@@ -1,4 +1,4 @@
-import { API } from "../../consts";
+import {API, PATH} from "../../consts";
 import { showAlert } from "../../utils";
 import {axiosInstance} from "../instance";
 
@@ -8,7 +8,10 @@ export const postLogin = (data, navigateTo) =>
         .then(user => {
             window.localStorage.setItem('accessJwt', user.data.accessJwt);
         })
-        .then(() => navigateTo())
+        .then(() => {
+            console.log('home')
+            navigateTo('/home')
+        })
         .catch(e => {console.log(e); showAlert(e.response?.data?.message)});
 
 export const postRegistration = (data, navigateTo) =>

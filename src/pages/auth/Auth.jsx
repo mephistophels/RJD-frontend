@@ -36,7 +36,7 @@ const Auth = () => {
 
   const path = useLocation().pathname;
   const navigate = useNavigate();
-  const navigateTo = () => navigate('/')
+  const navigateTo = () => navigate('/home')
 
   const login = (data) =>
     api.auth.postLogin(data, navigateTo);
