@@ -4,7 +4,7 @@ import {
     Group,
     InputLabel,
     Text,
-    Modal, Space,
+    Modal, Space, Checkbox,
 } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
@@ -79,6 +79,11 @@ const RegistrationFrom = ({submit}) => {
                     Дополнительные данные
                 </Button>
                 <Space h='sm'/>
+                <Group>
+                    <Checkbox required label='Соглашаюсь на обработку данных'></Checkbox>
+                </Group>
+                <Space h='sm'/>
+
                 <Button type="submit" fullWidth >
                     Registration
                 </Button>
